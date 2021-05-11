@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import InterviewerListItem from './InterviewerListItem'
 
 import 'components/InterviewerList.scss'
@@ -15,5 +15,8 @@ export default function InterviewerList (props) {
     />;
   })
 
-  return interviewerList;
+  return <Fragment>
+    <div className="interviewers__header">Interviewers</div>
+    <div className="interviewers__list">{interviewerList}</div>
+  </Fragment>;
 }
