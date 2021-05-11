@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 
 import 'components/InterviewerListItem.scss'
@@ -12,6 +12,6 @@ export default function InterviewerListItem (props) {
     src={props.avatar}
     alt={props.name}
   />
-    {props.name}
+    {props.selected && props.name}
   </li>;
 }
