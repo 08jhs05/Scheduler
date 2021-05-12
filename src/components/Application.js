@@ -6,29 +6,6 @@ import Appointment from "components/Appointment/index";
 import axios from "axios";
 import getAppointmentsForDay from "helpers/selectors";
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm"
-  },
-];
-
 export default function Application(props) {
 
   const [state, setState] = useState( {
@@ -40,7 +17,7 @@ export default function Application(props) {
   const dailyAppointments = [];
 
   useEffect( () => {
-    const promises = [axios.get('/api/days'), axios.get('/api/appointments')];
+    const promises = [axios.get('/api/days'), axios.get('/api/appointments'), axios.get('/api/interviewers')];
     Promise.all(promises).then( (res) => {
       setState(prev => ({ ...prev, days: res[0].data, appointments: res[1].data}));
     });
