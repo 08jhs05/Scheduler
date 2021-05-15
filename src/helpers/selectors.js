@@ -20,7 +20,7 @@ function getInterviewersForDay(state, day) {
   const interviewers = [];
   for(const appointmentID of appointmentsByDay) {
     let interv = state.appointments[appointmentID].interview;
-    if(interv && (interviewers.find(elem => elem.id === interv.interviewer) == undefined)) interviewers.push(state.interviewers[interv.interviewer]);
+    if(interv && (interviewers.find(elem => elem.id === interv.interviewer) === undefined)) interviewers.push(state.interviewers[interv.interviewer]);
   }
   return interviewers;
 }
