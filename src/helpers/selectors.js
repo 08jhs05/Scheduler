@@ -16,13 +16,9 @@ function getInterview(state, interview) {
 
 function getInterviewersForDay(state, day) {
   const searchDay = state.days.length === 0 ? [] : state.days.filter(elem => elem.name === day);
-  const appointmentsByDay = searchDay.length === 0 ? [] : searchDay[0].appointments
-  const interviewers = [];
-  for(const appointmentID of appointmentsByDay) {
-    let interv = state.appointments[appointmentID].interview;
-    if(interv && (interviewers.find(elem => elem.id === interv.interviewer) === undefined)) interviewers.push(state.interviewers[interv.interviewer]);
-  }
-  return interviewers;
+  const interviewersByDay = searchDay.length === 0 ? [] : searchDay[0].interviewers
+  const filteredInterviewers = interviewersByDay.map(interviewer => state.interviewers[interviewer]);
+  return filteredInterviewers;
 }
 
 export {selectUserByName, getAppointmentsForDay, getInterview, getInterviewersForDay};
