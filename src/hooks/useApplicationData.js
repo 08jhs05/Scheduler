@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
@@ -25,9 +25,27 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const dayID = state.days.find( day => day.name === state.day ).id - 1;
+    const days = [...state.days];
+
+    let spots = 0;
+
+    for(const appointment in appointments) {
+      if(appointments[appointment].id > (dayID * 5) && appointments[appointment].id < (dayID * 5 + 6) && appointments[appointment].interview === null) {
+        spots++;
+      }
+    }
+
+    days[dayID] = {
+      ...days[dayID],
+      spots
+    }
+
     return axios.put(`/api/appointments/${id}`, { interview }).then( () => {
       setState({
         ...state,
+        days,
         appointments
       });
     });
@@ -37,12 +55,28 @@ export default function useApplicationData() {
     const appointments = {
       ...state.appointments
     };
-
     appointments[id].interview = null;
+
+    const dayID = state.days.find( day => day.name === state.day ).id - 1;
+    const days = [...state.days];
+
+    let spots = 0;
+
+    for(const appointment in appointments) {
+      if(appointments[appointment].id > (dayID * 5) && appointments[appointment].id < (dayID * 5 + 6) && appointments[appointment].interview === null) {
+        spots++;
+      }
+    }
+
+    days[dayID] = {
+      ...days[dayID],
+      spots
+    }
 
     return axios.delete(`/api/appointments/${id}`).then( () => {
       setState({
         ...state,
+        days,
         appointments
       });
     });
