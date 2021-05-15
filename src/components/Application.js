@@ -4,7 +4,7 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
 import axios from "axios";
-import {selectUserByName, getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
+import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
 
 export default function Application(props) {
 
@@ -54,7 +54,8 @@ export default function Application(props) {
           time={appointment.time}
           interview={interview}
           interviewers={getInterviewersForDay(state, state.day)}
-          book={bookInterview}/>
+          book={bookInterview}
+          cancel={cancelInterview}/>
         })}
       </section>
     </main>
@@ -70,6 +71,21 @@ export default function Application(props) {
       [id]: appointment
     };
     return axios.put(`/api/appointments/${id}`, { interview }).then( () => {
+      setState({
+        ...state,
+        appointments
+      });
+    });
+  };
+
+  function cancelInterview(id) {
+    const appointments = {
+      ...state.appointments
+    };
+
+    appointments[id].interview = null;
+
+    return axios.delete(`/api/appointments/${id}`).then( () => {
       setState({
         ...state,
         appointments
