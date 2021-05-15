@@ -1,14 +1,17 @@
-import React from 'react'
-import 'components/Appointment/styles.scss'
-import Header from 'components/Appointment/Header'
-import Show from 'components/Appointment/Show'
-import Empty from 'components/Appointment/Empty'
-import Form from 'components/Appointment/Form'
-import useVisualMode from 'hooks/useVisualMode'
+import React from 'react';
+import 'components/Appointment/styles.scss';
+import Header from 'components/Appointment/Header';
+import Show from 'components/Appointment/Show';
+import Empty from 'components/Appointment/Empty';
+import Form from 'components/Appointment/Form';
+import Status from 'components/Appointment/Status';
+
+import useVisualMode from 'hooks/useVisualMode';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const CREATE = "CREATE"
+const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 export default function Appointment (props) {
 
@@ -17,12 +20,14 @@ export default function Appointment (props) {
   );
 
   function save(name, interviewer) {
+    transition(SAVING);
     const interview = {
       student: name,
       interviewer: interviewer
     };
-    props.book(props.id, interview);
-    transition(SHOW);
+    props.book(props.id, interview).then( () => {
+      transition(SHOW);
+    });
   };
 
   return  <article className="appointment">
@@ -35,6 +40,7 @@ export default function Appointment (props) {
       />
     )}
     {mode === CREATE && <Form onSave={save} onCancel={back} interviewers={props.interviewers}/>}
+    {mode === SAVING && <Status/>}
   </article>;
 }
 
