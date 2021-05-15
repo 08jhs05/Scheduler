@@ -4,7 +4,7 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
 import axios from "axios";
-import {selectUserByName, getAppointmentsForDay, getInterview} from "helpers/selectors";
+import {selectUserByName, getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
 
 export default function Application(props) {
 
@@ -18,7 +18,7 @@ export default function Application(props) {
   useEffect( () => {
     const promises = [axios.get('/api/days'), axios.get('/api/appointments'), axios.get('/api/interviewers')];
     Promise.all(promises).then( (res) => {
-      setState(prev => ({ ...prev, days: res[0].data, appointments: res[1].data, interviewers:res[2].data}));
+      setState(prev => ({ ...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data}));
     });
   }, []);
 
@@ -52,9 +52,28 @@ export default function Application(props) {
           key={appointment.id}
           id={appointment.id}
           time={appointment.time}
-          interview={interview}/>
+          interview={interview}
+          interviewers={getInterviewersForDay(state, state.day)}
+          book={bookInterview}/>
         })}
       </section>
     </main>
   );
-}
+
+  function bookInterview(id, interview) {
+    console.log(id, interview)
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+        
+    setState({
+      ...state,
+      appointments
+    })
+  }
+};
