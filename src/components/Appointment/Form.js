@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'components/Button';
 import InterviewerList from 'components/InterviewerList';
 
@@ -20,6 +20,13 @@ export default function Form (props) {
   const save = () => {
     props.onSave(name, interviewer);
   }
+
+  useEffect( () => {
+    if(props.default) {
+      setName(props.default.student);
+      setInterViewer(props.default.interviewer);
+    }
+  }, [props.default]);
 
   return <main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
