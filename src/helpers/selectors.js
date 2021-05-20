@@ -16,7 +16,7 @@ function getInterview(state, interview) {
 
 function getInterviewersForDay(state, day) {
   const searchDay = state.days.length === 0 ? [] : state.days.filter(elem => elem.name === day);
-  const interviewersByDay = searchDay.length === 0 ? [] : searchDay[0].interviewers
+  const interviewersByDay = searchDay.length === 0 ? [] : searchDay[0].interviewers === undefined ? [] : searchDay[0].interviewers;
   const filteredInterviewers = interviewersByDay.map(interviewer => state.interviewers[interviewer]);
   return filteredInterviewers;
 }

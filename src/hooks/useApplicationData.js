@@ -31,12 +31,12 @@ export default function useApplicationData() {
 
     let spots = 0;
 
-    for(const appointment in appointments) {
-      if(appointments[appointment].id > (dayID * 5) && appointments[appointment].id < (dayID * 5 + 6) && appointments[appointment].interview === null) {
+    for(const appointment of days[dayID].appointments) {
+      if(appointments[appointment].interview === null) {
         spots++;
       }
     }
-
+    
     days[dayID] = {
       ...days[dayID],
       spots
@@ -62,8 +62,8 @@ export default function useApplicationData() {
 
     let spots = 0;
 
-    for(const appointment in appointments) {
-      if(appointments[appointment].id > (dayID * 5) && appointments[appointment].id < (dayID * 5 + 6) && appointments[appointment].interview === null) {
+    for(const appointment of days[dayID].appointments) {
+      if(appointments[appointment].interview === null) {
         spots++;
       }
     }

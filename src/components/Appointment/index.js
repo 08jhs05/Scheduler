@@ -50,7 +50,7 @@ export default function Appointment (props) {
     });
   }
   
-  return  <article className="appointment">
+  return  <article className="appointment" data-testid="appointment" >
     <Header time={props.time}/>
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     {mode === SHOW && (
@@ -65,7 +65,7 @@ export default function Appointment (props) {
     {mode === EDIT && <Form onSave={save} onCancel={back} interviewers={props.interviewers} default={{ student: props.interview.student, interviewer: props.interview.interviewer.id }}/>}
     {mode === SAVE && <Status message='Saving...'/>}
     {mode === DELETE && <Status message='Deleting...'/>}
-    {mode === CONFIRM && <Confirm message='Are you sure you would like to delete???' onCancel={() => transition(SHOW)} onConfirm={onDelete}/>}
+    {mode === CONFIRM && <Confirm message='Are you sure you would like to delete?' onCancel={() => transition(SHOW)} onConfirm={onDelete}/>}
     {mode === ERROR_SAVE && <Error message='Could not save to database.' onClose={back}/>}
     {mode === ERROR_DELETE && <Error message='Could not delete from database.' onClose={back}/>}
   </article>;

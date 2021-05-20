@@ -5,6 +5,7 @@ import InterviewerList from 'components/InterviewerList';
 export default function Form (props) {
 
   const [name, setName] = useState(props.name || "");
+  const [error, setError] = useState("");
   const [interviewer, setInterViewer] = useState(props.interviewer || null);
 
   const reset = () => {
@@ -18,7 +19,7 @@ export default function Form (props) {
   }
 
   const save = () => {
-    props.onSave(name, interviewer);
+    validate()
   }
 
   useEffect( () => {
@@ -27,6 +28,16 @@ export default function Form (props) {
       setInterViewer(props.default.interviewer);
     }
   }, [props.default]);
+
+  function validate() {
+    if (name === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+  
+    setError("");
+    props.onSave(name, interviewer);
+  }  
 
   return <main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
@@ -37,7 +48,9 @@ export default function Form (props) {
           type="text"
           placeholder="Enter Student Name"
           onChange={(event) => setName(event.target.value)}
+          data-testid="student-name-input"
         />
+        <section className="appointment__validation">{error}</section>
       </form>
       <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={(event) => setInterViewer(event)} />
     </section>
