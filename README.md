@@ -10,12 +10,12 @@ Interview Scheduler is a React app that allows users to book and manage their in
 - Dynamically Updated Remaning Spots
 !["Screenshot of schedule list when fully booked"](https://github.com/08jhs05/Scheduler/blob/master/docs/schedules.png)
 
+- New Appointment
+!["Screenshot of form"](https://github.com/08jhs05/Scheduler/blob/master/docs/Form.png)
+
 - Validation Check
 !["newly added schedule"](https://github.com/08jhs05/Scheduler/blob/master/docs/studentBlank.png)
 !["newly added schedule"](https://github.com/08jhs05/Scheduler/blob/master/docs/interviewerBlank.png)
-
-- New Appointment
-!["Screenshot of form"](https://github.com/08jhs05/Scheduler/blob/master/docs/Form.png)
 
 - Confirm Delete
 !["ask user when delete button is clicked"](https://github.com/08jhs05/Scheduler/blob/master/docs/confirm.png)
